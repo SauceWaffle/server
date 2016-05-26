@@ -1,0 +1,6 @@
+{
+  "type": ["Road", "Trail", "Mix" ],
+  "hills": ["Flat", "Easy Hills", "Hard Hills"],
+  "distance": ["Short (2-4)", "Longer (5-7)", "Long (8-15)"],
+  "day": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+}
