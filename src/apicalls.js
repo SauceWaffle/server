@@ -80,6 +80,33 @@ export function sqlGetAppRegistration(client_id) {
 
 
 
+/******** GOLFER MANAGEMENT ***************/
+
+export function sqlAddNewGolfer() {
+  return fetch(`http://${DATABASE_SERVER}/${API_NAME}?query=addNewGolfer`)
+          .then(response => { return response.json(); })
+          .then(json => { console.log(`Added Golfer`);
+                          sqlGetGolfers();
+                          return Promise.resolve()
+                        })
+}
+
+export function sqlSaveGolferInfo(golfer_id, field, value) {
+  return fetch(`http://${DATABASE_SERVER}/${API_NAME}?query=saveGolferInfo&golferid=${golfer_id}&field=${field}&value=${value}`)
+          .then(response => { return response.json(); })
+          .then(json => { console.log(`Golfer ${golfer_id} ${field} updated to ${value}`);
+                          sqlGetGolfers();
+                          return Promise.resolve()
+                        })
+}
+
+
+
+
+
+
+
+
 /******* MESSAGE BOARD **********/
 
 export function sqlSendMessage(round_id, golfer_id, message) {

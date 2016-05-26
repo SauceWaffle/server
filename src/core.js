@@ -1,6 +1,6 @@
 import {List, Map} from 'immutable';
 import {sqlGetGolfers, sqlGetHoles, sqlGetCurrentRoundId, sqlRegisterTo, sqlSendMessage, sqlGetRoundData, sqlGetAppRegistration,
-        sqlGetRoundMessages, sqlGetCurrentRoundMessages, sqlSaveGolferScore} from './apicalls'
+        sqlGetRoundMessages, sqlGetCurrentRoundMessages, sqlSaveGolferScore, sqlAddNewGolfer, sqlSaveGolferInfo} from './apicalls'
 
 export const INITIAL_STATE = Map();
 
@@ -48,6 +48,18 @@ export function getAppRegistration(state, client_id) {
 
 export function registerFromSql(state, registration) {
   return state.setIn(['clients', registration[0].client_id], registration[0]);
+}
+
+
+
+export function addNewGolfer(state) {
+  sqlAddNewGolfer();
+  return state;
+}
+
+export function saveGolferInfo(state, golfer_id, field, value){
+  sqlSaveGolferInfo(golfer_id, field, value);
+  return state;
 }
 
 
