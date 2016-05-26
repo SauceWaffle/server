@@ -1,5 +1,6 @@
 import {getHoles, getGolfers, setCurrentRoundId, getRoundData, setRoundData, getAppRegistration, registerFromSql, registerToGolfer,
         getRoundMessages, setRoundMessages, saveMessage, saveGolferScore, refreshServerData, addNewGolfer, saveGolferInfo,
+        getClientManageGolferRounds, setClientManageGolferRounds, 
         INITIAL_STATE} from './core';
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -24,7 +25,7 @@ export default function reducer(state = INITIAL_STATE, action) {
   case 'SET_APP_REGISTRATION':
     return registerFromSql(state, action.registration);
   case 'REGISTER_TO_GOLFER':
-    return registerToGolfer(state, action.client_id, action.golfer_id);
+    return registerToGolfer(state, action.clientId, action.golfer_id);
 
   case 'GET_ROUND_MESSAGES':
     return getRoundMessages(state, action.round_id);
@@ -38,6 +39,10 @@ export default function reducer(state = INITIAL_STATE, action) {
     return addNewGolfer(state);
   case 'SAVE_GOLFER_INFO':
     return saveGolferInfo(state, action.golfer_id, action.field, action.value);
+  case 'GET_MANAGE_GOLFER_ROUNDS':
+    return getClientManageGolferRounds(state, action.clientId, action.golfer_id);
+  case 'SET_MANAGE_GOLFER_ROUNDS':
+    return setClientManageGolferRounds(state, action.client_id, action.round_data);
 
 
   case 'SEND_GOLFER_SCORE':

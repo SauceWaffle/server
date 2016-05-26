@@ -101,6 +101,17 @@ export function sqlSaveGolferInfo(golfer_id, field, value) {
 }
 
 
+export function sqlGetManageGolferRounds(client_id, golfer_id) {
+  console.log('api')
+  return fetch(`http://${DATABASE_SERVER}/${API_NAME}?query=getManageGolferRounds&golferid=${golfer_id}`)
+          .then(response => { return response.json(); })
+          .then(json => { console.log(`Got Golfer ${golfer_id} Rounds`);
+                          store.dispatch({ type: 'SET_MANAGE_GOLFER_ROUNDS', client_id, round_data: json });
+                          return Promise.resolve()
+                        })
+}
+
+
 
 
 

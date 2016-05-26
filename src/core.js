@@ -1,6 +1,7 @@
 import {List, Map} from 'immutable';
 import {sqlGetGolfers, sqlGetHoles, sqlGetCurrentRoundId, sqlRegisterTo, sqlSendMessage, sqlGetRoundData, sqlGetAppRegistration,
-        sqlGetRoundMessages, sqlGetCurrentRoundMessages, sqlSaveGolferScore, sqlAddNewGolfer, sqlSaveGolferInfo} from './apicalls'
+        sqlGetRoundMessages, sqlGetCurrentRoundMessages, sqlSaveGolferScore, sqlAddNewGolfer, sqlSaveGolferInfo,
+        sqlGetManageGolferRounds} from './apicalls'
 
 export const INITIAL_STATE = Map();
 
@@ -14,6 +15,7 @@ export function getGolfers(state, golfers) {
   const allgolfers = List(golfers);
   return state.set('golfers', allgolfers);
 }
+
 
 
 
@@ -33,6 +35,17 @@ export function setRoundData(state, round_id, round_data) {
   return state.setIn(['round_data', 'round_'+round_id], round_data);
 }
 
+export function getClientManageGolferRounds(state, client_id, golfer_id) {
+  console.log('first core')
+  sqlGetManageGolferRounds(client_id, golfer_id);
+  return state;
+}
+
+export function setClientManageGolferRounds(state, client_id, round_data) {
+  console.log('second core')
+  const roundData = List(round_data);
+  return state.setIn(['clients', client_id, 'golfermanagerounds'], roundData)
+}
 
 
 
