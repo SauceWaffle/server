@@ -36,15 +36,16 @@ export function setRoundData(state, round_id, round_data) {
 }
 
 export function getClientManageGolferRounds(state, client_id, golfer_id) {
-  console.log('first core')
   sqlGetManageGolferRounds(client_id, golfer_id);
   return state;
 }
 
 export function setClientManageGolferRounds(state, client_id, round_data) {
-  console.log('second core')
   const roundData = List(round_data);
-  return state.setIn(['clients', client_id, 'golfermanagerounds'], roundData)
+  const newClientState = state.getIn(['clients', client_id]);
+
+  newClientState['golfermanagerounds'] = roundData;
+  return state.updateIn(['clients', client_id], clientstate => newClientState)
 }
 
 
@@ -101,8 +102,8 @@ export function saveMessage(state, round_id, golfer_id, message) {
 
 
 
-export function saveGolferScore(state, round_id, golfer_id, hole_id, score) {
-  sqlSaveGolferScore(round_id, golfer_id, hole_id, score);
+export function saveGolferScore(state, round_id, golfer_id, hole_id, score, client_id, from_where) {
+  sqlSaveGolferScore(round_id, golfer_id, hole_id, score, client_id, from_where);
   return state;
 }
 

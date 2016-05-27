@@ -102,7 +102,6 @@ export function sqlSaveGolferInfo(golfer_id, field, value) {
 
 
 export function sqlGetManageGolferRounds(client_id, golfer_id) {
-  console.log('api')
   return fetch(`http://${DATABASE_SERVER}/${API_NAME}?query=getManageGolferRounds&golferid=${golfer_id}`)
           .then(response => { return response.json(); })
           .then(json => { console.log(`Got Golfer ${golfer_id} Rounds`);
@@ -153,11 +152,13 @@ export function sqlGetCurrentRoundMessages() {
 /************ SCORING ***************/
 
 
-export function sqlSaveGolferScore(round_id, golfer_id, hole_id, score) {
+export function sqlSaveGolferScore(round_id, golfer_id, hole_id, score, client_id, from_where) {
   return fetch(`http://${DATABASE_SERVER}/${API_NAME}?query=saveScore&roundid=${round_id}&golferid=${golfer_id}&holeid=${hole_id}&score=${score}`)
           .then(response => { return response.json(); })
           .then(json => { console.log(`Golfer ${golfer_id} saved score, hole: ${hole_id}, score: ${score}`);
                           store.dispatch({ type: 'GET_ROUND_DATA', round_id });
+                          (from_where === "manage") ? sqlGetManageGolferRounds(client_id, golfer_id) : "";
+                          (from_where === "manage") ? sqlGetGolfers() : "";
                           return Promise.resolve()
                         })
 }
