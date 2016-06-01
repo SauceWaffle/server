@@ -27,6 +27,16 @@ export function sqlGetGolfers() {
 }
 
 
+export function sqlGetGolfersNotScored() {
+  return fetch(`http://${DATABASE_SERVER}/${API_NAME}?query=allgolfersnotscored`)
+          .then(response => { return response.json(); })
+          .then(json => { store.dispatch({ type: 'GET_GOLFERS_NOT_SCORED', golfers: json });
+                          console.log('Golfers Not Scored Loaded.');
+                          return Promise.resolve()
+                        })
+}
+
+
 
 
 /************* GET ALL CURRENT ROUND INFO **********/
@@ -150,6 +160,7 @@ export function sqlGetCurrentRoundMessages() {
 
 
 /************ SCORING ***************/
+
 
 
 export function sqlSaveGolferScore(round_id, golfer_id, hole_id, score, client_id, from_where) {

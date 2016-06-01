@@ -16,6 +16,11 @@ export function getGolfers(state, golfers) {
   return state.set('golfers', allgolfers);
 }
 
+export function getGolfersNotScored(state, golfers) {
+  const allgolfers = List(golfers);
+  return state.set('golfersnotscored', allgolfers);
+}
+
 
 
 
@@ -75,6 +80,32 @@ export function saveGolferInfo(state, golfer_id, field, value){
   sqlSaveGolferInfo(golfer_id, field, value);
   return state;
 }
+
+
+
+
+export function setMyGolfers(state, client_id, golfer_id = "none") {
+  const allmygolfers = state.getIn(['mygolfers', client_id]) || [];
+  const alreadythere = (allmygolfers) ? allmygolfers.filter(val => Map(val).get('_id') == golfer_id) : null;
+
+  if ( golfer_id != "none" && alreadythere.length == 0 ) {
+    const thegolfers = state.get('golfers');
+
+    thegolfers.map((golfer) => { if( golfer['_id'] == golfer_id) { allmygolfers.push(golfer) }  })
+  }
+
+  return state.updateIn(['mygolfers', client_id], val => allmygolfers);
+}
+
+
+export function removeFromMyGolfers(state, client_id, golfer_id) {
+    const thegolfers = state.getIn(['mygolfers', client_id]);
+    return state.updateIn(['mygolfers', client_id], val => thegolfers.filter(val => Map(val).get('_id') != golfer_id));
+}
+
+
+
+
 
 
 
