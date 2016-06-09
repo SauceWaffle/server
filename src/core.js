@@ -1,7 +1,7 @@
 import {List, Map} from 'immutable';
 import {sqlGetGolfers, sqlGetHoles, sqlGetCurrentRoundId, sqlRegisterTo, sqlSendMessage, sqlGetRoundData, sqlGetAppRegistration,
         sqlGetRoundMessages, sqlGetCurrentRoundMessages, sqlSaveGolferScore, sqlAddNewGolfer, sqlSaveGolferInfo,
-        sqlGetManageGolferRounds} from './apicalls'
+        sqlGetManageGolferRounds, sqlGetGolfersNotScored} from './apicalls'
 
 export const INITIAL_STATE = Map();
 
@@ -257,5 +257,6 @@ export function refreshServerData(state) {
   sqlGetHoles()
   sqlGetCurrentRoundId()
   sqlGetCurrentRoundMessages()
+  sqlGetGolfersNotScored()
   return state;
 }

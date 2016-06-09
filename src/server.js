@@ -1,7 +1,7 @@
 import Server from 'socket.io';
 
 export function startServer(store) {
-  const io = new Server().attach(5000);
+  const io = new Server().attach(8000);
 
   store.subscribe(
     () => io.emit('state', store.getState().toJS())
